@@ -62,7 +62,7 @@
         </p>
         <div class="hero-actions reveal">
           <a href="#prologue" class="button magnetic">入夜</a>
-          <a href="#poems" class="button button-secondary magnetic">阅读全文</a>
+          <a href="#archive" class="button button-secondary magnetic">按篇阅读</a>
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -150,7 +150,7 @@
       <div class="section-heading reveal">
         <p class="overline">ARCHIVE</p>
         <h2>篇章目录</h2>
-        <p class="lead">先择篇，再入文；若愿意，也可以直接一路读到底。</p>
+        <p class="lead">现在支持两种阅读方式：目录速览 + 独立单篇页。保留单页气质，同时进一步提升性能。</p>
       </div>
       <div class="archive-grid" id="archive-grid"></div>
     </section>
@@ -158,8 +158,12 @@
     <section id="poems" class="section poems">
       <div class="section-heading reveal">
         <p class="overline">FULL TEXT</p>
-        <h2>《越集》全文</h2>
-        <p class="lead">这里不是节选，不是摘录，也不是摘要。按原意，全文完整收录。</p>
+        <h2>《越集》篇章</h2>
+        <p class="lead">保留原主题与气质，但改成按篇展开，避免手机一次性渲染全文导致卡顿。</p>
+      </div>
+      <div class="reading-actions reveal">
+        <button id="expand-all" class="button button-secondary">展开全部</button>
+        <button id="collapse-all" class="button button-secondary">收起全部</button>
       </div>
       <div id="poem-container" class="poem-container"></div>
     </section>
@@ -180,7 +184,7 @@
   <footer class="site-footer section">
     <div class="footer-actions reveal">
       <a class="button magnetic" href="#hero">重回首章</a>
-      <a class="button button-secondary magnetic" href="#poems">继续读下去</a>
+      <a class="button button-secondary magnetic" href="#archive">继续读下去</a>
     </div>
     <p class="deploy-note reveal">静态文件，无需构建；上传到 GitHub Pages 即可直接部署。</p>
   </footer>
