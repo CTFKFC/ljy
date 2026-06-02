@@ -175,9 +175,11 @@
     <p class="deploy-note reveal">静态文件，无需构建；上传到 GitHub Pages 即可直接部署。</p>
   </footer>
 
-  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <!-- GSAP: unpkg → cdnjs fallback，一个挂了用另一个 -->
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js" onerror="var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';document.head.appendChild(s);"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js" onerror="var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';document.head.appendChild(s);"></script>
+  <!-- Lenis 平滑滚动 — 可选，拿掉不影响网站 -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" async></script>
   <script src="content.js"></script>
   <script src="script.js"></script>
 </body>

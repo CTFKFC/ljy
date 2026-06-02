@@ -519,10 +519,18 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(180deg, rgba(9,10,15,0.95), rgba(9,10,15,0));
 }
 
+/* 默认可见，不依赖外部脚本。GSAP 可用时 script.js 会切回动画模式 */
 .reveal,
 .reveal-up,
 .reveal-char,
 [data-reveal="stagger"] > * {
+  opacity: 1;
+  transform: none;
+}
+.gsap-ready .reveal,
+.gsap-ready .reveal-up,
+.gsap-ready .reveal-char,
+.gsap-ready [data-reveal="stagger"] > * {
   opacity: 0;
   transform: translateY(24px);
 }
@@ -597,9 +605,13 @@ img { max-width: 100%; display: block; }
   .reveal,
   .reveal-up,
   .reveal-char,
-  [data-reveal="stagger"] > * {
-    opacity: 1;
-    transform: none;
+  [data-reveal="stagger"] > *,
+  .gsap-ready .reveal,
+  .gsap-ready .reveal-up,
+  .gsap-ready .reveal-char,
+  .gsap-ready [data-reveal="stagger"] > * {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
