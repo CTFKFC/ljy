@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>夜观天象有感｜烬与月</title>
-  <meta name="description" content="《越集》单篇：夜观天象有感" />
+  <meta name="description" content="夜不寐，仰观乾象，欲通款曲。双星盘桓，旁缀四点，玄素青碧，交相往复。试问而无答，寂寂复寂寂。  澄杂念，追旧绪，静默以观。七人成列，四者絮絮，三者欢洽，独遗余音" />
+  <meta name="theme-color" content="#090a0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,35 +13,79 @@
 </head>
 <body class="poem-page-body">
   <div class="grain"></div>
-  <header class="site-header glass page-header static-header">
-    <a class="brand" href="../index.html#hero">烬与月</a>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="ambient ambient-c"></div>
+  <div class="veil veil-top"></div>
+
+  <header class="site-header static-header glass">
+    <a class="brand" href="../index.html">烬与月</a>
     <nav class="site-nav page-nav">
       <a href="../index.html#archive">目录</a>
-      <a href="../index.html#story">故事</a>
-      <a href="../index.html#epilogue">余烬</a>
+      <a href="../index.html#poems">摘读</a>
     </nav>
   </header>
+
   <main>
-    <section class="section poem-page-hero">
-      <p class="overline">YUEJI / SINGLE PIECE</p>
-      <h1 class="hero-title poem-page-title">夜观天象有感</h1>
-      <p class="hero-intro">《越集》单篇页。保留原主题气质，但将正文拆到独立页面，进一步降低长页压力。</p>
-      <div class="hero-actions">
-        <a class="button" href="../index.html#archive">返回目录</a>
-        <a class="button button-secondary" href="../index.html">回首页</a>
+    <section class="section poem-single-wrap">
+      <div class="section-heading reveal">
+        <p class="overline">17 / 33</p>
+        <h1 class="hero-title poem-page-title reveal-char">夜观天象有感</h1>
+        <p class="lead reveal">《越集》单篇页</p>
+      </div>
+
+      <article class="poem-article poem-single-article glass is-open is-featured reveal-up">
+        <div class="poem-content">
+          <p>夜不寐，仰观乾象，欲通款曲。双星盘桓，旁缀四点，玄素青碧，交相往复。试问而无答，寂寂复寂寂。</p>
+          <p>澄杂念，追旧绪，静默以观。七人成列，四者絮絮，三者欢洽，独遗余音不成章，空对荧屏自伤神。</p>
+          <p>春寻雪，夏问梅，秋闻蝉，冬无雪。</p>
+          <p>夜叩星，星何言？光年外，可有情？</p>
+          <p>寒暑推迁本常事，人间最孤是难言。</p>
+        </div>
+      </article>
+
+      <div class="footer-actions reveal" style="margin-top: 28px; justify-content: space-between;">
+        <a class="button button-secondary magnetic" href="16-登高.html">上一篇</a>
+        <a class="button button-secondary magnetic" href="../index.html#archive">返回目录</a>
+        <a class="button magnetic" href="18-待后时.html">下一篇</a>
       </div>
     </section>
-    <section class="section poem-single-wrap">
-      <article class="poem-article glass is-open poem-single-article">
-        <div class="poem-head">
-          <div>
-            <div class="poem-index">17 / 33</div>
-            <h2 class="poem-title">夜观天象有感</h2>
-          </div>
-        </div>
-        <div class="poem-content"><p>夜不寐，仰观乾象，欲通款曲。双星盘桓，旁缀四点，玄素青碧，交相往复。试问而无答，寂寂复寂寂。</p><p>澄杂念，追旧绪，静默以观。七人成列，四者絮絮，三者欢洽，独遗余音不成章，空对荧屏自伤神。</p><p>春寻雪，夏问梅，秋闻蝉，冬无雪。</p><p>夜叩星，星何言？光年外，可有情？</p><p>寒暑推迁本常事，人间最孤是难言。</p></div>
-      </article>
-    </section>
   </main>
+
+  <script>
+    (() => {
+      const cursor = document.querySelector('.cursor');
+      const isFinePointer = window.matchMedia('(pointer:fine)').matches;
+      const isMobile = window.matchMedia('(max-width: 720px)').matches;
+      if (cursor && isFinePointer && !isMobile) {
+        let mx = window.innerWidth / 2, my = window.innerHeight / 2, cx = mx, cy = my;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+        const tick = () => {
+          cx += (mx - cx) * 0.18;
+          cy += (my - cy) * 0.18;
+          cursor.style.left = cx + 'px';
+          cursor.style.top = cy + 'px';
+          requestAnimationFrame(tick);
+        };
+        tick();
+        document.querySelectorAll('a, button, .button').forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+        });
+      }
+      if (window.gsap && window.ScrollTrigger && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !isMobile) {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.fromTo('.reveal, .reveal-up, .reveal-char', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' });
+      } else {
+        document.querySelectorAll('.reveal, .reveal-up, .reveal-char').forEach(el => {
+          el.style.opacity = 1;
+          el.style.transform = 'none';
+        });
+      }
+    })();
+  </script>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
 </body>
 </html>
