@@ -22,27 +22,28 @@
     fallback.innerHTML = `
       <p class="overline">CONTENT ERROR</p>
       <h2>内容加载失败</h2>
-      <p>请检查 <code>content.js</code> 是否存在、文件名是否正确，以及部署平台是否成功加载了该文件。</p>
+      <p>请检查 <code>content.js</code> 是否存在，以及部署时是否一并上传。</p>
     `;
     document.querySelector('#poems')?.appendChild(fallback);
     return;
   }
 
-  const featuredTitles = new Set(['梦故人书', '夜怀知止赋', '天问', '拟天问·千朝烬', '空囊赋']);
+  const featuredTitles = new Set(data.featured_titles || []);
+  const selectedPoems = data.poems.filter(poem => featuredTitles.has(poem.title));
 
   function createPoemMarkup(poem) {
     return poem.content
-      .split(/\n\n+/)
-      .map(p => `<p>${p.replace(/\n/g, '<br />')}</p>`)
+      .split(/
+
++/)
+      .map(p => `<p>${p.replace(/
+/g, '<br />')}</p>`)
       .join('');
   }
 
   data.poems.forEach((poem, index) => {
-    const id = `poem-${index + 1}`;
     const excerpt = poem.content.replace(/\s+/g, ' ').slice(0, 42);
     const featuredClass = featuredTitles.has(poem.title) ? ' is-featured' : '';
-
-    const slug = `${String(index + 1).padStart(2, '0')}-${poem.title.toLowerCase().replace(/[^\w\-\u4e00-\u9fff]+/g, '-').replace(/^-+|-+$/g, '') || `poem-${index + 1}`}`;
     const item = document.createElement('article');
     item.className = `archive-item glass${featuredClass}`;
     item.innerHTML = `
@@ -52,22 +53,27 @@
       </div>
       <p>${excerpt}...</p>
       <div class="archive-actions">
-        <a class="button button-secondary" href="#${id}">页内展开</a>
-        <a class="button" href="poems/${slug}.html">单篇页</a>
+        <a class="button" href="poems/${poem.slug}.html">进入单篇页</a>
       </div>
     `;
     archiveGrid.appendChild(item);
+  });
 
+  selectedPoems.forEach((poem, localIndex) => {
+    const id = `selected-poem-${localIndex + 1}`;
     const article = document.createElement('article');
-    article.className = `poem-article glass${featuredClass}`;
+    article.className = 'poem-article glass is-featured';
     article.id = id;
     article.innerHTML = `
       <div class="poem-head">
         <div>
-          <div class="poem-index">${String(index + 1).padStart(2, '0')} / ${data.poems.length}</div>
+          <div class="poem-index">摘读 ${String(localIndex + 1).padStart(2, '0')}</div>
           <h3 class="poem-title">${poem.title}</h3>
         </div>
-        <button class="button button-secondary poem-toggle" type="button" aria-expanded="false" aria-controls="${id}-content">展开正文</button>
+        <div class="archive-actions">
+          <a class="button button-secondary" href="poems/${poem.slug}.html">去单篇页</a>
+          <button class="button button-secondary poem-toggle" type="button" aria-expanded="false" aria-controls="${id}-content">展开正文</button>
+        </div>
       </div>
       <div id="${id}-content" class="poem-content" hidden>${createPoemMarkup(poem)}</div>
     `;
@@ -195,7 +201,7 @@
       { opacity: 1, y: 0, duration: 0.7, stagger: 0.08, delay: 0.2, ease: 'power2.out' }
     );
 
-    gsap.utils.toArray('.reveal, .reveal-up, .timeline-card, .motif, .archive-item, .epilogue-panel, .prologue-panel').forEach(el => {
+    gsap.utils.toArray('.reveal, .reveal-up, .timeline-card, .motif, .archive-item, .epilogue-panel, .prologue-panel, .poem-article').forEach(el => {
       gsap.to(el, {
         opacity: 1,
         y: 0,
